@@ -1,0 +1,18 @@
+# Core dependencies
+pandas>=2.0.0
+requests>=2.31.0
+playwright>=1.40.0
+openpyxl>=3.1.0
+
+# Additional scraping utilities
+playwright-stealth>=1.0.6
+
+# Optional: For enhanced logging and debugging
+colorlog>=6.7.0
+tqdm>=4.66.0
+
+# Development dependencies (optional)
+pytest>=7.4.0
+pytest-asyncio>=0.21.0
+black>=23.0.0
+flake8>=6.0.0

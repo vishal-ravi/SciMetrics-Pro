@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  scimetrics-pro:
+    build: .
+    container_name: scimetrics-pro
+    volumes:
+      - ./data:/app/data
+      - ./jnlactive.xlsx:/app/jnlactive.xlsx:ro
+      - ./screenshots:/app/screenshots
+    environment:
+      - PYTHONUNBUFFERED=1
+      - API_KEY=${API_KEY:-1a1c5dc0003f1f666332f199390ee33b}
+    restart: unless-stopped
+    profiles:
+      - main
+
+  scimetrics-manual:
+    build: .
+    container_name: scimetrics-pro-manual
+    volumes:
+      - ./data:/app/data
+      - ./jnlactive.xlsx:/app/jnlactive.xlsx:ro
+      - ./screenshots:/app/screenshots
+    environment:
+      - PYTHONUNBUFFERED=1
+    command: ["python", "src/journal_scraper_manual.py"]
+    restart: "no"
+    profiles:
+      - manual
+
+  scimetrics-colors:
+    build: .
+    container_name: scimetrics-pro-colors
+    volumes:
+      - ./data:/app/data
+      - ./jnlactive.xlsx:/app/jnlactive.xlsx:ro
+      - ./screenshots:/app/screenshots
+    environment:
+      - PYTHONUNBUFFERED=1
+    command: ["python", "src/journal_scraper_colors.py"]
+    restart: "no"
+    profiles:
+      - colors
+
+networks:
+  default:
+    name: scimetrics-network
